@@ -35,6 +35,13 @@ public class FlurryBunch implements Bunch {
             }
         });
 
+        registerProcessor("endSession", new ProcessorEngine.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                endSession();
+            }
+        });
+
         registerProcessor("setAppVersion", new ProcessorEngine.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
@@ -122,6 +129,10 @@ public class FlurryBunch implements Bunch {
 
     private void startSession(String apiKey) {
         FlurryAgent.onStartSession(context, apiKey);
+    }
+
+    private void endSession() {
+        FlurryAgent.onEndSession(context);
     }
 
     private void setAppVersion(String appVersion) {
